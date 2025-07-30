@@ -1,0 +1,2 @@
+# AviUtl2-IntelliSense
+AviUtl2のスクリプトファイル作成を補助するVScode用の拡張機能です
