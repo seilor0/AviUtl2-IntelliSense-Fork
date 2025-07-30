@@ -1,0 +1,36 @@
+{
+  "name": "aul2-intellisense",
+  "displayName": "AviUtl2 IntelliSense",
+  "description": "AviUtl2の独自変数・関数を補完し、スクリプトファイル制作を補助します。",
+  "version": "1.0.0",
+  "publisher": "hirokawa-beach",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": ["Languages"],
+  "activationEvents": ["onLanguage:lua"],
+  "main": "./extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "lua",
+        "aliases": ["AviUtl2 Lua", "lua"],
+        "extensions": [".anm2", ".obj2", ".cam2", ".scn2", ".tra2"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "lua",
+        "scopeName": "source.lua",
+        "path": "./syntaxes/aul2.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "lua",
+        "path": "./snippets/aul2.code-snippets"
+      }
+    ]
+  }
+}

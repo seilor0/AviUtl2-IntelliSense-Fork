@@ -1,0 +1,37 @@
+{
+  "TrackBar": {
+    "prefix": "track",
+    "body": ["--track@${1:parameter}:${2:項目名},${3:-100},${4:100},${5:0},${6:0.01}"],
+    "description": "トラックバー定義 "
+  },
+  "Check": {
+    "prefix": "check",
+    "body": ["--check@${1:parameter}:${2:項目名},${3:0}"],
+    "description": "チェックボックス定義 "
+  },
+  "Color": {
+    "prefix": "col",
+    "body": ["--col@${1:parameter}:${2:項目名},${3:0xffffff}"],
+    "description": "色設定定義 "
+  }, 
+  "Font": {
+    "prefix": "font",
+    "body": ["--font@${1:parameter}:${2:項目名},${3:Yu Gothic UI}"],
+    "description": "フォント設定定義 "
+  }, 
+  "Figure": {
+    "prefix": "figure",
+    "body": ["--figure@${1:parameter}:${2:項目名},${3:三角形}"],
+    "description": "図形設定定義 "
+  }, 
+  "Select": {
+    "prefix": "select",
+    "body": ["--select@${1:parameter}:${2:項目名},$3,選択肢=0,選択肢=1"],
+    "description": "リスト選択定義"
+  }, 
+  "Value": {
+    "prefix": "value",
+    "body": ["--value@${1:parameter}:${2:項目名},${3:0}"],
+    "description": "変数項目定義"
+  }
+}
