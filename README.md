@@ -14,10 +14,10 @@ Snippets,SignatureHelp,候補表示などのコード補完機能があります
 ### SignatureHelp
 設定や関数の各項目の形式を表示します。<br>
 関数入力時には現在入力中の項目がハイライト表示され、説明も出てきます。
-!["SnippetsImage"](images/signaturehelp.gif)<br>
+<img src="images/signaturehelp.gif" width="500"><br>
 ### 候補表示
 入力した文字によって設定項目や関数の予測候補が表示されます。<br>
-!["SnippetsImage"](images/kouho.gif)<br>
+<img src="images/kouho.gif" width="500"><br>
 
 > [!TIP]
 > これらの機能は特定の文字(`@,--,.`)などを入力することにより作動する仕組みになっています。<br>
@@ -25,6 +25,6 @@ Snippets,SignatureHelp,候補表示などのコード補完機能があります
 ## 導入方法
 1.Releasesから最新のバージョンの`.vsix`をダウンロードしてください。<br>
 2.VScodeを立ち上げ、拡張機能メニューの上部にあるボタンを押し、「VSIXからのインストール」を選択してください。<br>
-!["SnippetsImage"](images/install1.png)<br>
+<img src="images/install1.png" width="600"><br>
 3.ダイアログでダウンロードしたvsixファイルを選択してください。<br>
 **これで完了です。お疲れさまでした！**
