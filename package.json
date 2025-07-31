@@ -1,11 +1,15 @@
 {
   "name": "aul2-intellisense",
   "displayName": "AviUtl2 IntelliSense",
-  "description": "AviUtl2の独自変数・関数を補完し、スクリプトファイル制作を補助します。",
+  "description": "AviUtl2の設定項目・独自関数を補完し、スクリプトファイル制作を補助します。",
   "version": "1.0.0",
   "publisher": "hirokawa-beach",
   "engines": {
     "vscode": "^1.80.0"
+  },
+  "repository": {
+  "type": "git",
+  "url": "https://github.com/hirokawa-beach/AviUtl2-IntelliSense.git"
   },
   "categories": ["Languages"],
   "activationEvents": ["onLanguage:lua"],

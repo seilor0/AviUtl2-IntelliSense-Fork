@@ -456,7 +456,7 @@ function activate(context) {
         return tags.map(tag => {
           const item = new vscode.CompletionItem(`--${tag}`, vscode.CompletionItemKind.Snippet);
           item.insertText = `${tag}`;
-          item.detail = 'AviUtl2 独自変数';
+          item.detail = 'AviUtl2 設定項目';
           return item;
         });
       }
