@@ -2,7 +2,7 @@
   "name": "aul2-intellisense",
   "displayName": "AviUtl2 IntelliSense",
   "description": "AviUtl2の設定項目・独自関数を補完し、スクリプトファイル制作を補助します。",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "publisher": "hirokawa-beach",
   "engines": {
     "vscode": "^1.80.0"
