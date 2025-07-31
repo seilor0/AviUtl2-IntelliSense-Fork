@@ -346,7 +346,7 @@ function activate(context) {
               break;
             case 'col':
               sig.signatures = [
-                createSignature('--col@変数名:項目名,デフォルト値', ['','','16進数カラーコード']),
+                createSignature('--col@変数名:項目名,デフォルト値', ['','','カラーコード']),
               ];
               break;
             case 'file':
