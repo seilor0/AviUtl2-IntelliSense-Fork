@@ -3,7 +3,7 @@ AviUtl2のスクリプトファイル作成を補助するVScode用の拡張機�
 Snippets,SignatureHelp,候補表示などのコード補完機能があります。
 > [!IMPORTANT]
 > この拡張機能はいまのところベータ版として公開しています。<br>
-不具合のご指摘やご要望がございましたら、このリポジトリのissuesもしくはDMにてお知らせください。
+不具合のご指摘やご要望がございましたら、このリポジトリのissuesやDMなどにてお知らせください。
 
 ## 機能紹介
 ### Snippets
@@ -31,7 +31,7 @@ Snippets,SignatureHelp,候補表示などのコード補完機能があります
 **これで完了です。お疲れさまでした！**<br>
 > [!TIP]
 > VScodeのターミナルからも導入ができます。<br>
-`cd`でvsixがインストールされている場所に飛んだあと、<br>
+`cd`でvsixがダウンロードされている場所に飛んだあと、<br>
 `code --install-extension aul2-intellisense-x.x.x.vsix`を実行してください
 ## アンインストール方法
 ほかの拡張機能と同様に、拡張機能のメニューからAviUtl2 IntelliSenseを選び、「アンインストール」を選択してください。
