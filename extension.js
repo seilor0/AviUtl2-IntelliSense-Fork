@@ -218,7 +218,7 @@ function activate(context) {
                                 { label: 'y3', documentation: '終了点Y座標' },
                                 { label: 'z3', documentation: '終了点Z座標' }
                             ]
-                        }
+                        },
                     };
 
                     let info = helpMap[functionName];
@@ -309,6 +309,105 @@ function activate(context) {
                 }
             },
             '(', ',' 
+        )
+    );
+
+    context.subscriptions.push(
+        vscode.languages.registerSignatureHelpProvider(
+            { scheme: 'file', language: 'lua' },
+            {
+                provideSignatureHelp(document, position) {
+                    const line = document.lineAt(position.line).text;
+                    const substring = line.substring(0, position.character);
+
+                    const nameMatch = substring.match(/(\w+)\s*\([^)]*$/);
+                    if (!nameMatch) return null;
+
+                    const functionName = nameMatch[1];
+                    if (functionName.startsWith('obj')) return null; // obj系は除外
+
+                    const helpMap = {
+                        'RGB': {
+                            label: 'RGB(r, g, b)',
+                            parameters: [
+                                { label: 'r', documentation: '赤' },
+                                { label: 'g', documentation: '緑' },
+                                { label: 'b', documentation: '青/このあと続けて同じようにr2.g2,b2指定で時間経過に応じて色変化' },
+                            ]
+                        },
+                        'HSV': {
+                            label: 'HSV(h, s, v)',
+                            parameters: [
+                                { label: 'h', documentation: '' },
+                                { label: 's', documentation: '' },
+                                { label: 'v', documentation: 'このあと同じようにr2.g2,b2指定で時間経過に応じて色変化' },
+                            ]
+                        },
+                        'OR': {
+                            label: 'OR(a, b)',
+                            parameters: [
+                                { label: 'a', documentation: '' },
+                                { label: 'b', documentation: '' },
+                            ]
+                        },
+                        'AND': {
+                            label: 'AND(a, b)',
+                            parameters: [
+                                { label: 'a', documentation: '' },
+                                { label: 'b', documentation: '' },
+                            ]
+                        },
+                        'XOR': {
+                            label: 'XOR(a, b)',
+                            parameters: [
+                                { label: 'a', documentation: '' },
+                                { label: 'b', documentation: '' },
+                            ]
+                        },
+                        'SHIFT': {
+                            label: 'SHIFT(a, shift)',
+                            parameters: [
+                                { label: 'a', documentation: '' },
+                                { label: 'shift', documentation: '(正の数→左シフト、負の数→右シフト)' },
+                            ]
+                        },
+                        'rotation': {
+                            label: 'rotation(x0, y0, x1, y1, x2, y2, x3, y3, zoom, r)',
+                            parameters: [
+                                { label: 'x0', documentation: '頂点0のX座標' },
+                                { label: 'y0', documentation: '頂点0のY座標' },
+                                { label: 'x1', documentation: '頂点1のX座標' },
+                                { label: 'y1', documentation: '頂点1のY座標' },
+                                { label: 'x2', documentation: '頂点2のX座標' },
+                                { label: 'y2', documentation: '頂点2のY座標' },
+                                { label: 'x3', documentation: '頂点3のX座標' },
+                                { label: 'y3', documentation: '頂点3のY座標' },
+                                { label: 'zoom', documentation: '拡大率(1.0=等倍)' },
+                                { label: 'r', documentation: '回転角度' }
+                            ]
+                        },
+                    };
+
+                    const info = helpMap[functionName];
+                    if (!info) return null;
+
+                    const sigInfo = new vscode.SignatureInformation(info.label);
+                    sigInfo.parameters = info.parameters.map(
+                        p => new vscode.ParameterInformation(p.label, p.documentation)
+                    );
+
+                    const sigHelp = new vscode.SignatureHelp();
+                    sigHelp.signatures = [sigInfo];
+                    sigHelp.activeSignature = 0;
+                    sigHelp.activeParameter = Math.min(
+                    calculateActiveParameter(substring),
+                    info.parameters.length - 1
+                    );
+
+                    return sigHelp;
+                }
+            },
+            '(', ','
         )
     );
 
@@ -421,6 +520,58 @@ function activate(context) {
           const item = new vscode.CompletionItem(`obj.${name}`, vscode.CompletionItemKind.Function);
           item.insertText = `obj.${name}`;
           item.detail = 'AviUtl2 独自関数';
+          return item;
+        });
+      }
+    },
+    '.' 
+    )
+    );
+
+    context.subscriptions.push(
+    vscode.languages.registerCompletionItemProvider(
+    { language: 'lua', scheme: 'file' },
+    {
+      provideCompletionItems(document, position) {
+        const line = document.lineAt(position.line).text;
+        const text = line.substring(0, position.character);
+
+        if (!/obj\.\w*$/.test(text)) return undefined;
+
+        const candidates = [
+          'ox',
+          'oy',
+          'oz',
+          'rx',
+          'ry',
+          'rz',
+          'ox',
+          'oy',
+          'oz',
+          'zoom',
+          'alpha',
+          'aspect',
+          'x',
+          'y',
+          'z',
+          'w',
+          'h',
+          'screen_w',
+          'screen_h',
+          'framerate',
+          'frame',
+          'time',
+          'totalframe',
+          'totaltime',
+          'layer',
+          'index',
+          'num'
+        ];
+
+        return candidates.map(name => {
+          const item = new vscode.CompletionItem(`obj.${name}`, vscode.CompletionItemKind.Function);
+          item.insertText = `obj.${name}`;
+          item.detail = 'AviUtl2 独自変数';
           return item;
         });
       }
