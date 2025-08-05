@@ -17,7 +17,7 @@ Snippets,SignatureHelp,候補表示などのコード補完機能があります
 <img src="images/signaturehelp.gif" width="500"><br>
 
 ### 候補表示
-入力した文字によって設定項目や関数の予測候補が表示されます。<br>
+入力した文字によって設定項目や関数、変数の予測候補が表示されます。<br>
 <img src="images/kouho.gif" width="500"><br>
 > [!TIP]
 > これらの機能は特定の文字(`@,--,.`など)を入力することにより作動する仕組みになっています。<br>
