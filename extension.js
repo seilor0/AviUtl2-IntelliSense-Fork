@@ -332,15 +332,15 @@ function activate(context) {
                             parameters: [
                                 { label: 'r', documentation: '赤' },
                                 { label: 'g', documentation: '緑' },
-                                { label: 'b', documentation: '青/このあと続けて同じようにr2.g2,b2指定で時間経過に応じて色変化' },
+                                { label: 'b', documentation: '青/このあと続けて同じようにr2,g2,b2指定で時間経過に応じて色変化' },
                             ]
                         },
                         'HSV': {
                             label: 'HSV(h, s, v)',
                             parameters: [
-                                { label: 'h', documentation: '' },
-                                { label: 's', documentation: '' },
-                                { label: 'v', documentation: 'このあと同じようにr2.g2,b2指定で時間経過に応じて色変化' },
+                                { label: 'h', documentation: '色相' },
+                                { label: 's', documentation: '彩度' },
+                                { label: 'v', documentation: '明度/このあと同じようにr2,g2,b2指定で時間経過に応じて色変化' },
                             ]
                         },
                         'OR': {
@@ -484,13 +484,16 @@ function activate(context) {
     
     context.subscriptions.push(
     vscode.languages.registerCompletionItemProvider(
-    { language: 'lua', scheme: 'file' },
+    { scheme: 'file', language: 'lua' },
     {
       provideCompletionItems(document, position) {
         const line = document.lineAt(position.line).text;
         const text = line.substring(0, position.character);
 
-        if (!/obj\.\w*$/.test(text)) return undefined;
+        const match = text.match(/obj\.(\w*)$/);
+        if (!match) return;
+
+        const typed = match[1];  
 
         const candidates = [
           'draw',
@@ -516,38 +519,76 @@ function activate(context) {
           'interpolation'
         ];
 
-        return candidates.map(name => {
-          const item = new vscode.CompletionItem(`obj.${name}`, vscode.CompletionItemKind.Function);
-          item.insertText = `obj.${name}`;
-          item.detail = 'AviUtl2 独自関数';
-          return item;
-        });
+        return candidates
+          .filter(name => name.startsWith(typed)) 
+          .map(name => {
+            const item = new vscode.CompletionItem(`obj.${name}`, vscode.CompletionItemKind.Function);
+            item.insertText = name;
+            item.filterText = `obj.${name}`;
+            item.detail = 'AviUtl2 独自関数';
+            return item;
+          });
       }
     },
-    '.' 
+    '.','a','b','c','d','e','f','g','h','i','j',
+    'k','l','m','n','o','p','q','r','s','t','u',
+    'v','w','x','y','z'
     )
     );
 
     context.subscriptions.push(
-    vscode.languages.registerCompletionItemProvider(
+  vscode.languages.registerCompletionItemProvider(
     { language: 'lua', scheme: 'file' },
     {
       provideCompletionItems(document, position) {
         const line = document.lineAt(position.line).text;
         const text = line.substring(0, position.character);
 
-        if (!/obj\.\w*$/.test(text)) return undefined;
+        const match = text.match(/\b(\w*)$/);
+        if (!match) return;
+
+        const typed = match[1];
+
+        const functions = [
+            'RGB',
+            'HSV',
+            'OR',
+            'AND',
+            'XOR',
+            'SHIFT',
+            'rotation'
+        ];
+        return functions
+          .filter(name => name.startsWith(typed))
+          .map(name => {
+            const item = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
+            item.insertText = name;
+            item.detail = 'AviUtl2 独自関数';
+            return item;
+          });
+        }
+    },
+    ''
+    )
+    );
+
+    context.subscriptions.push(
+    vscode.languages.registerCompletionItemProvider(
+    { scheme: 'file', language: 'lua' },
+    {
+      provideCompletionItems(document, position) {
+        const line = document.lineAt(position.line).text;
+        const text = line.substring(0, position.character);
+
+        const match = text.match(/obj\.(\w*)$/);
+        if (!match) return;
+
+        const typed = match[1]; 
 
         const candidates = [
-          'ox',
-          'oy',
-          'oz',
           'rx',
           'ry',
           'rz',
-          'ox',
-          'oy',
-          'oz',
           'zoom',
           'alpha',
           'aspect',
@@ -568,17 +609,50 @@ function activate(context) {
           'num'
         ];
 
-        return candidates.map(name => {
-          const item = new vscode.CompletionItem(`obj.${name}`, vscode.CompletionItemKind.Function);
-          item.insertText = `obj.${name}`;
-          item.detail = 'AviUtl2 独自変数';
-          return item;
-        });
+        return candidates
+          .filter(name => name.startsWith(typed)) 
+          .map(name => {
+            const item = new vscode.CompletionItem(`obj.${name}`, vscode.CompletionItemKind.Variable);
+            item.insertText = name;
+            item.filterText = `obj.${name}`;
+            item.detail = 'AviUtl2 独自変数';
+            return item;
+          });
+      }
+    },
+    '.','a','b','c','d','e','f','g','h','i','j',
+    'k','l','m','n','o','p','q','r','s','t','u',
+    'v','w','x','y','z'
+    )
+    );
+
+    context.subscriptions.push(
+    vscode.languages.registerCompletionItemProvider(
+    { language: 'lua', scheme: 'file' },
+    {
+      provideCompletionItems(document, position) {
+        const line = document.lineAt(position.line).text;
+        const text = line.substring(0, position.character);
+        const match = text.match(/obj\.o(\w*)$/);
+        if (!match) return;
+
+        const typed = match[1]; 
+
+        const targets = ['ox', 'oy', 'oz'];
+        return targets
+          .filter(name => name.startsWith(`o${typed}`))
+          .map(name => {
+            const item = new vscode.CompletionItem(`obj.${name}`, vscode.CompletionItemKind.Variable);
+            item.insertText = name;
+            item.filterText = `obj.${name}`;
+            return item;
+          });
       }
     },
     '.' 
     )
     );
+
 
     context.subscriptions.push(
   vscode.languages.registerCompletionItemProvider(
