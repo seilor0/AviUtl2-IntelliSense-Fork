@@ -25,6 +25,8 @@ Snippets,SignatureHelp,候補表示などのコード補完機能があります
 >
 ### Syntax Highlight(v0.3.0からの新機能)
 ソースコードに属性に応じて着色し、視認性を上げます。<br>
+<img src="images/syntaxhighlight.png" width="500"><br>
+<img src="images/syntaxhighlight.gif"><br>
 > [!IMPORTANT]
 > この機能はVScodeそのものの環境設定も変更する必要があります。<br>
 > 上のアニメーションgifも参考に、下記の手順に従って変更してください。<br>
