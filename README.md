@@ -29,7 +29,45 @@ Snippets,SignatureHelp,候補表示などのコード補完機能があります
 > この機能はvscode自体の環境設定も変更する必要があります。<br>
 VScodeを開き、設定マーク(左下)→設定、もしくは`Ctrl+,`で設定を表示したのち、<br>
 ユーザー(vscode全体)の設定かワークスペースの設定、編集したい方を選択し<br>
-右上にある「設定(JSONを開く)」を押してください。
+右上にある「設定(JSONを開く)」を押してください。<br>
+開いたjsonファイルに下記のコードを追加してください。
+```
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "aul2.settings.lua",
+        "settings": {
+          "foreground": "#FF8800"
+        }
+      },
+      {
+        "scope": "aul2.functions.lua",
+        "settings": {
+          "foreground": "#FFD700"
+        }
+      },
+      {
+        "scope": "aul2.variable.lua",
+        "settings": {
+          "foreground": "#87CEFA"
+        }
+      },
+      {
+        "scope": "aul2.variable.inside.lua",
+        "settings": {
+          "foreground": "#87CEFA"
+        }
+      },
+      {
+        "scope": "aul2.type.lua",
+        "settings": {
+          "foreground": "#228B22"
+        }
+      }
+    ]
+  }
+```
+"foreground":につづくカラーコードを変更することで、ご自身でお好みの色に変更可能です。
 > 
 ## 導入方法
 1.Releasesから最新のバージョンの`.vsix`をダウンロードしてください。<br>
