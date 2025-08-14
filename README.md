@@ -23,43 +23,44 @@ Snippets,SignatureHelp,候補表示などのコード補完機能があります
 > これらの機能は特定の文字(`@,--,.`など)を入力することにより作動する仕組みになっています。<br>
 入力時以外に表示させたり、万が一表示されなかったりする場合は、`Ctrl+Shift+Space`で手動で表示させることもできます。
 >
-### Syntax Highlighting(v0.3.0からの新機能)
+### Syntax Highlight(v0.3.0からの新機能)
 ソースコードに属性に応じて着色し、視認性を上げます。<br>
 > [!IMPORTANT]
-> この機能はvscode自体の環境設定も変更する必要があります。<br>
-VScodeを開き、設定マーク(左下)→設定、もしくは`Ctrl+,`で設定を表示したのち、<br>
-ユーザー(vscode全体)の設定かワークスペースの設定、編集したい方を選択し<br>
-右上にある「設定(JSONを開く)」を押してください。<br>
-開いたjsonファイルに下記のコードを追加してください。
+> この機能はVScodeそのものの環境設定も変更する必要があります。<br>
+> 上のアニメーションgifも参考に、下記の手順に従って変更してください。<br>
+>VScodeを開き、設定マーク(左下)→設定、もしくは`Ctrl+,`で設定を表示したのち、<br>
+>ユーザー(vscode全体)の設定かワークスペースの設定の、編集したい方を選択し<br>
+>右上にある「設定(JSONを開く)」を押してください。<br>
+>開いたjsonファイルに下記のコードを追加してください。
 ```
-  "editor.tokenColorCustomizations": {
+"editor.tokenColorCustomizations": {
     "textMateRules": [
       {
-        "scope": "aul2.settings.lua",
+        "scope": "aul2.settings.lua", //設定項目(--check@など)への着色
         "settings": {
           "foreground": "#FF8800"
         }
       },
       {
-        "scope": "aul2.functions.lua",
+        "scope": "aul2.functions.lua", //関数(obj.drawなど)への着色
         "settings": {
           "foreground": "#FFD700"
         }
       },
       {
-        "scope": "aul2.variable.lua",
+        "scope": "aul2.variable.lua", //変数(obj.oxなど)への着色
         "settings": {
           "foreground": "#87CEFA"
         }
       },
       {
-        "scope": "aul2.variable.inside.lua",
+        "scope": "aul2.variable.inside.lua", //関数内の引数への着色
         "settings": {
           "foreground": "#87CEFA"
         }
       },
       {
-        "scope": "aul2.type.lua",
+        "scope": "aul2.type.lua", //関数内の型("figure"など)への着色
         "settings": {
           "foreground": "#228B22"
         }
@@ -67,8 +68,8 @@ VScodeを開き、設定マーク(左下)→設定、もしくは`Ctrl+,`で設�
     ]
   }
 ```
-"foreground":につづくカラーコードを変更することで、ご自身でお好みの色に変更可能です。
-> 
+>"foreground":につづくカラーコードを変更することで、ご自身でお好みの色に変更可能です。
+
 ## 導入方法
 1.Releasesから最新のバージョンの`.vsix`をダウンロードしてください。<br>
 2.VScodeを立ち上げ、拡張機能メニューの上部にあるボタンを押し、「VSIXからのインストール」を選択してください。<br>
