@@ -1,17 +1,133 @@
 {
-  "scopeName": "source.lua",
+  "scopeName": "source.aul2.lua",
   "patterns": [
     {
-      "name": "keyword.aul2.track",
-      "match": "--(track|check|color|file|font|figure|select|value|label|script|information)@\\w*:"
+      "match": "(--(?:track|check|color|file|font|figure|select|value|text)@)(.+):.*?,",
+      "captures": {
+        "1": {"name": "aul2.settings.lua"},
+        "2": {"name": "aul2.variable.lua"}
+      }
+    },
+    {
+      "match": "(--(?:label|script|information|track\\d|check0|dialog)):.+",
+      "captures": {
+        "1": {"name":"aul2.settings.lua"}
+      }
+    },
+    {
+      "begin": "^(--\\[\\[)(pixelshader|computeshader)@(.+):",
+      "beginCaptures": {
+        "1": {"name": "comment.block.lua"},
+        "2": {"name": "keyword.control.aul2"},
+        "3": {"name": "aul2.variable.lua"}
+      },
+      "end": "]]",
+      "endCaptures": {"0": {"name": "comment.block.lua"}},
+      "patterns": [
+        {"include": "source.hlsl"},
+        {
+          "match": "[\\w\\d]",
+          "name": "aul2.variable.lua"
+        }
+      ]
+    },
+    {
+      "begin": "\\.(cdef)(\\[\\[)",
+      "beginCaptures": {
+        "1": {"name": "entity.name.function.aul2"},
+        "2": {"name": "comment.block.lua"}
+      },
+      "end": "]]",
+      "endCaptures": {
+        "0": {"name": "comment.block.lua"}
+      },
+      "patterns": [
+        {"include": "source.c"}
+      ]
+    },
+    {
+      "begin": "^--\\[\\[",
+      "end": "]]",
+      "beginCaptures": {"0": {"name": "comment.block.lua"}},
+      "endCaptures": {"0": {"name": "comment.block.lua"}},
+      "contentName": "comment.block.lua"
     },
     {
       "name": "comment.line.double-dash.lua",
       "match": "--.*$"
     },
     {
-      "name": "support.function.obj.lua",
-      "match": "\\bobj\\.(draw|load|effect|getvalue|getoption|setoption|setanchor|getaudio|getpixel|pixelshader|rand|mes|clearbuffer|interpolation)\\b"
+      "match": "^(@).*",
+      "captures": {
+        "1": { "name": "keyword.control.aul2" }
+      }
+    },
+    {
+      "match": "\\b(obj)\\.(ox|oy|oz|rx|ry|rz|cx|cy|cz|zoom|alpha|aspect|x|y|z|w|h|screen_w|screen_h|framerate|frame|time|totalframe|totaltime|layer|index|num)\\b",
+      "captures": {
+        "1": {"name": "variable.other.constant.aul2"},
+        "2": {"name": "variable.other.constant.aul2"}
+      }
+    },
+    {
+      "match": "\"\\s*(?:image|movie|figure|text|framebuffer|tempbuffer|before|culling|billboard|none|add|sub|mul|screen|overlay|light|dark|brightness|chroma|shadow|light_dark|diff|alpha_add2?|alpha_max|alpha_sub|drawtarget|draw_state|focus_mode|camera_param|track_mode|section_num|script_name|gui|camera_mode|camera_param|multi_object|line|loop|star|arm|color|inout|xyz|col|rgb|type|index|num|time|accelerate|decelerate|param|link|timecontrol|framerate|script_path|saving|blend|obj|text)\\s*\"",
+      "name": "aul2.type.lua"
+    },
+    {
+      "match": "\\b(RGB|HSV|OR|AND|XOR|SHIFT|rotation|debug_print)\\b",
+      "name": "entity.name.function.aul2"
+    },
+    {
+      "match": "\\b(obj)\\.(mes|effect|draw|drawpoly|load|setfont|rand|setoption|getoption|getvalue|setanchor|getpixel|putpixel|copypixel|pixeloption|getaudio|copybuffer|clearbuffer|pixelshader|computeshader|getpoint|getinfo|interpolation)\\s*\\(",
+      "captures": {
+        "1": {"name": "variable.other.constant.aul2"},
+        "2": {"name": "entity.name.function.aul2" }
+      }
+    },
+    {
+      "match": "\\b(table)\\.(insert|concat|maxn|remove|sort|new|clear|move)\\b",
+      "captures": {
+        "1": {"name": "variable.other.constant.aul2"},
+        "2": {"name": "entity.name.function.aul2"}
+      }
+    },
+    {
+      "match": "\\b(math)\\.(pi|deg|rad|sin|cos|tan|asin|acos|atan2?|sinh|cosh|tanh|pow|exp|log|sqrt|ldexp|frexp|abs|ceil|floor|fmod|max|min|huge|modf|random|randomseed)\\b",
+      "captures": {
+        "1": {"name":"variable.other.constant.aul2"},
+        "2": {"name":"entity.name.function.aul2"}
+      }
+    },
+    {
+      "match": "\\b(string)\\.(byte|char|find|format|g?match|g?sub|len|lower|rep|reverse|upper)\\b",
+      "captures": {
+        "1": {"name":"variable.other.constant.aul2"},
+        "2": {"name":"entity.name.function.aul2"}
+      }
+    },
+    {
+      "match": "\\blocal\\b",
+      "name": "storage.type.aul2"
+    },
+    {
+      "match": "\\b(if|else|elseif|not|then|end|function|for|do|return|or|and)\\b",
+      "name": "keyword.control.aul2"
+    },
+    {
+      "match": "\\b(nil|true|false)\\b",
+      "name": "constant.language.aul2"
+    },
+    {
+      "match": "\".*?\"",
+      "name": "string.quoted.double.aul2"
+    },
+    {
+      "match": "\\b\\d+(\\.\\d+)?\\b",
+      "name": "constant.numeric.aul2"
+    },
+    {
+      "match": "\\w[\\w\\d_]*",
+      "name": "aul2.variable.lua" 
     }
   ],
   "fileTypes": ["anm2", "obj2", "cam2", "scn2", "tra2"],

@@ -1,15 +1,15 @@
 {
   "name": "aul2-intellisense",
-  "displayName": "AviUtl2 IntelliSense",
-  "description": "AviUtl2の設定項目・独自関数を補完し、スクリプトファイル制作を補助します。",
-  "version": "0.2.0",
-  "publisher": "hirokawa-beach",
+  "displayName": "AviUtl2 IntelliSense Fork",
+  "description": "Hirokawa-beachさんのAviUtl2-IntelliSenseのフォーク版です。主にSyntax Highlight部分を変更しています。",
+  "version": "0.1.0",
+  "publisher": "seilor0",
   "engines": {
-    "vscode": "^1.80.0"
+    "vscode": "^1.104.1"
   },
   "repository": {
   "type": "git",
-  "url": "https://github.com/hirokawa-beach/AviUtl2-IntelliSense.git"
+  "url": "https://github.com/seilor0/AviUtl2-IntelliSense-Fork.git"
   },
   "categories": ["Languages"],
   "activationEvents": ["onLanguage:lua"],

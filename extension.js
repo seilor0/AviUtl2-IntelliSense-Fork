@@ -418,7 +418,7 @@ function activate(context) {
         provideSignatureHelp(document, position, token, ctx) {
           const line = document.lineAt(position.line).text;
 
-          const triggerRegex = /^--(track|check|col|file|font|figure|select|value)@/;
+          const triggerRegex = /^--(track|check|col|file|font|figure|select|value|text)@/;
           const match = line.match(triggerRegex);
           if (!match) return null;
 
@@ -471,6 +471,11 @@ function activate(context) {
             case 'value':
               sig.signatures = [
                 createSignature('--value@変数名:項目名,デフォルト値', ['','','数値→0,文字列→"あ",配列→{0,0,0}']),
+              ];
+              break;
+            case 'text':
+              sig.signatures = [
+                createSignature('--text@変数名:項目名,デフォルト値', ['']),
               ];
               break;
           }
@@ -649,7 +654,7 @@ function activate(context) {
           });
       }
     },
-    '.' 
+    '' 
     )
     );
 
@@ -673,6 +678,7 @@ function activate(context) {
           'figure@',
           'select@',
           'value@',
+          'text@',
           'label:',
           'script:',
           'information:'

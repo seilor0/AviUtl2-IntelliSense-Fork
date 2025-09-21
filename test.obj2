@@ -1,3 +1,40 @@
---拡張機能のテスト時に使う(自分用)
 
-HSV(100,200,)
+--[[
+ブロックコメント
+]]
+
+-- 行コメント
+
+@複数スクリプト名
+--label:ラベル名
+--track@size:サイズ,0,4000,1000,0.01 -- 設定項目
+
+-- pixelshaderの宣言
+--[[pixelshader@psmain:
+    float4 psmain(float4 pos: SV_Position): SV_Target {
+        ...
+    }
+]]
+
+-- cdef内の記述
+test_ffi = require("ffi")
+test_ffi.cdef[[
+int main(void) {
+    return 0;
+};
+]]
+
+obj.ox -- 変数
+size   -- obj.{変数}以外の変数
+100    -- 数値
+"txt"  -- 文字列
+"figure" -- 型
+math.max(size, 10) --math,string,tableライブラリ
+local r,g,b = RGB(color) -- local, obj.{関数}以外の関数
+
+if (check==0) then -- if,for文
+    debug_print(false) -- nil,true,false
+end
+
+--VScodeのsettings.jsonを触る必要があります
+--手順は下記をご覧ください

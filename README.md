@@ -1,88 +1,83 @@
-# AviUtl2-IntelliSense
-AviUtl2のスクリプトファイル作成を補助するVScode用の拡張機能です。<br>
-Snippets,SignatureHelp,候補表示などのコード補完機能があります。
-> [!IMPORTANT]
-> この拡張機能はいまのところベータ版として公開しています。<br>
-不具合のご指摘やご要望がございましたら、このリポジトリのissuesやDMなどにてお知らせください。
+# AviUtl2-IntelliSense-Fork
+
+Hirokawa-beachさんの[AviUtl2-IntelliSense-0.3.0](https://github.com/hirokawa-beach/AviUtl2-IntelliSense)のフォーク版です。<br>主にSyntax Highlight部分を変更しています。
 
 ## 機能紹介
-### Snippets
-設定項目(`--value@`など)の入力を補助するものです。<br>
-`--`を省略して項目を入力しTabキーを押すと、設定項目のひな形が生成されます。
-<img src="images/snippets.gif" width="500">
+元の機能に加えて、ソースコードが以下のように着色されます。
 
-### SignatureHelp
-設定や関数の各項目の形式を表示します。<br>
-関数入力時には現在入力中の項目がハイライト表示され、説明も出てきます。
-<img src="images/signaturehelp.gif" width="500"><br>
+<img src="images/syntaxhighlight.png" width="500">
 
-### 候補表示
-入力した文字によって設定項目や関数、変数の予測候補が表示されます。<br>
-<img src="images/kouho.gif" width="500"><br>
-> [!TIP]
-> これらの機能は特定の文字(`@,--,.`など)を入力することにより作動する仕組みになっています。<br>
-入力時以外に表示させたり、万が一表示されなかったりする場合は、`Ctrl+Shift+Space`で手動で表示させることもできます。
->
-### Syntax Highlight(v0.3.0からの新機能)
-ソースコードを属性に応じて着色し、視認性を上げます。<br>
-<img src="images/syntaxhighlight.png" width="500"><br>
-**↓VScodeの設定(settings.json)を編集する方法**<br>
-<img src="images/syntaxhighlight.gif"><br>
+**↓VScodeの設定(settings.json)を編集する方法**
+**(フォーク元と同様)**
+
+<img src="images/syntaxhighlight.gif">
+
 > [!IMPORTANT]
-> この機能はVScodeそのものの環境設定も変更する必要があります。<br>
-> 上のアニメーションgifも参考に、下記の手順に従って変更してください。<br>
->VScodeを開き、設定マーク(左下)→設定、もしくは`Ctrl+,`で設定を表示したのち、<br>
->ユーザー(vscode全体)の設定かワークスペースの設定の、編集したい方を選択し<br>
->右上にある「設定(JSONを開く)」を押してください。<br>
->開いたjsonファイルに下記のコードを追加してください。
+> Syntax Highlightの導入にはVScodeそのものの環境設定も変更する必要があります。
+> 上のアニメーションgifも参考に、下記の手順に従って変更してください。
+> VScodeを開き、設定マーク(左下)→設定、もしくは`Ctrl+,`で設定を表示したのち、
+> ユーザー(vscode全体)の設定かワークスペースの設定の、編集したい方を選択し
+> 右上にある「設定(JSONを開く)」を押してください。
+> 開いたjsonファイルに下記のコードを追加してください。
 ```
 "editor.tokenColorCustomizations": {
-    "textMateRules": [
-      {
-        "scope": "aul2.settings.lua", //設定項目(--check@など)への着色
-        "settings": {
-          "foreground": "#FF8800"
-        }
-      },
-      {
-        "scope": "aul2.functions.lua", //関数(obj.drawなど)への着色
-        "settings": {
-          "foreground": "#FFD700"
-        }
-      },
-      {
-        "scope": "aul2.variable.lua", //変数(obj.oxなど)への着色
-        "settings": {
-          "foreground": "#87CEFA"
-        }
-      },
-      {
-        "scope": "aul2.variable.inside.lua", //関数内の引数への着色
-        "settings": {
-          "foreground": "#87CEFA"
-        }
-      },
-      {
-        "scope": "aul2.type.lua", //関数内の型("figure"など)への着色
-        "settings": {
-          "foreground": "#228B22"
-        }
+  "textMateRules": [
+    {
+      "scope": "aul2.settings.lua", //設定項目(--check@など)への着色
+      "settings": {
+        "foreground": "#FF8800"
       }
-    ]
-  }
+    },
+    {
+      "scope": "aul2.variable.lua", //変数(obj.oxなど)への着色
+      "settings": {
+        "foreground": "#87CEFA"
+      }
+    },
+    {
+      "scope": "aul2.type.lua", //型("figure"など)への着色
+      "settings": {
+        "foreground": "#228B22"
+      }
+    }
+  ]
+}
 ```
 >"foreground":につづくカラーコードを変更することで、ご自身でお好みの色に変更可能です。
 
-## 導入方法
+## 導入方法(フォーク元と同様)
 1.Releasesから最新のバージョンの`.vsix`をダウンロードしてください。<br>
 2.VScodeを立ち上げ、拡張機能メニューの上部にあるボタンを押し、「VSIXからのインストール」を選択してください。<br>
 <img src="images/install1.png" width="600"><br>
 3.ダイアログでダウンロードしたvsixファイルを選択してください。<br>
 **これで完了です。お疲れさまでした！**<br>
 > [!TIP]
-> VScodeのターミナルからも導入ができます。<br>
-`cd`でvsixがダウンロードされている場所に飛んだあと、<br>
-`code --install-extension aul2-intellisense-x.x.x.vsix`を実行してください。
+> VScodeのターミナルからも導入ができます。
+> `cd`でvsixがダウンロードされている場所に飛んだあと、
+> `code --install-extension aul2-intellisense-x.x.x.vsix`を実行してください。
 > バージョンを戻す時には、上記のコマンドに`--force`を足して実行してください
-## アンインストール方法
-ほかの拡張機能と同様に、拡張機能のメニューからAviUtl2 IntelliSenseを選び、「アンインストール」を選択してください。
+
+## アンインストール方法(フォーク元と同様)
+ほかの拡張機能と同様に、拡張機能のメニューからAviUtl2 IntelliSense Forkを選び、「アンインストール」を選択してください。
+
+## 機能詳細
+
+### 追加した主なSyntax Highlight
+- `local`, `function`, `if, for`文
+- `math, string, table`ライブラリ
+- `pixelshader`, `computeshader`の定義部分, `{変数}.cdef`部分
+- `obj.{関数}`以外の追加関数(ex:`RGB()`)
+- ブロックコメント
+- 旧スクリプト形式の一部(`--track0,1,2,3`, `--check0`, `--dialog`)
+- 文字列, 数値, `obj.{変数}`以外の変数(アルファベット&数字&_で構成された単語)
+
+### 変更点・修正点
+- `--label`, `--script`, `--information`が着色されるように修正
+- 変数(ex:`obj.ox`), 関数内の型(ex:`"figure"`)の着色対象範囲をファイル全体に変更
+- `obj.setoption`, `obj.putpixel`, `obj.copypixel`, `obj.pixelshader`, `obj.computeshader`を着色対象に追加
+- `obj.rotation`,`obj.degug_pring`を`rotation`,`debug_pring`に修正
+- `obj.{変数}`の色をやや濃い青色に変更
+- VScodeのsetting.jsonで設定する項目を`aul2.settings.lua`, `aul2.variable.lua`, `aul2.type.lua`の3つに削減
+
+### その他
+- AviUtl2 Beta12の公開に伴い、Snippets, SignatureHelp, SyntaxHighlightに`--text@`の項目を追加
