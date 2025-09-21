@@ -1,5 +1,5 @@
 {
-  "name": "aul2-intellisense",
+  "name": "aul2-intellisense-fork",
   "displayName": "AviUtl2 IntelliSense Fork",
   "description": "Hirokawa-beachさんのAviUtl2-IntelliSenseのフォーク版です。主にSyntax Highlight部分を変更しています。",
   "version": "0.1.0",
