@@ -1,14 +1,14 @@
 # AviUtl2-IntelliSense-Fork
 
-Hirokawa-beachさんの[AviUtl2-IntelliSense-0.3.0](https://github.com/hirokawa-beach/AviUtl2-IntelliSense)のフォーク版です。<br>主にSyntax Highlight部分を変更しています。
+Hirokawa-beachさんの[AviUtl2-IntelliSense-0.3.0](https://github.com/hirokawa-beach/AviUtl2-IntelliSense)のフォーク版です。<br>
+主にSyntax Highlight部分を変更しています。
 
 ## 機能紹介
 元の機能に加えて、ソースコードが以下のように着色されます。
 
 <img src="images/syntaxhighlight.png" width="500">
 
-**↓VScodeの設定(settings.json)を編集する方法**
-**(フォーク元と同様)**
+**↓VScodeの設定(settings.json)を編集する方法(フォーク元と同様)**
 
 <img src="images/syntaxhighlight.gif">
 
@@ -51,10 +51,11 @@ Hirokawa-beachさんの[AviUtl2-IntelliSense-0.3.0](https://github.com/hirokawa-
 <img src="images/install1.png" width="600"><br>
 3.ダイアログでダウンロードしたvsixファイルを選択してください。<br>
 **これで完了です。お疲れさまでした！**<br>
+
 > [!TIP]
 > VScodeのターミナルからも導入ができます。
 > `cd`でvsixがダウンロードされている場所に飛んだあと、
-> `code --install-extension aul2-intellisense-x.x.x.vsix`を実行してください。
+> `code --install-extension aul2-intellisense-fork-x.x.x.vsix`を実行してください。
 > バージョンを戻す時には、上記のコマンドに`--force`を足して実行してください
 
 ## アンインストール方法(フォーク元と同様)
@@ -63,8 +64,8 @@ Hirokawa-beachさんの[AviUtl2-IntelliSense-0.3.0](https://github.com/hirokawa-
 ## 機能詳細
 
 ### 追加した主なSyntax Highlight
-- `local`, `function`, `if, for`文
-- `math, string, table`ライブラリ
+- `local`, `function`, `if`文, `for`文
+- `math`, `string`, `table`ライブラリ
 - `pixelshader`, `computeshader`の定義部分, `{変数}.cdef`部分
 - `obj.{関数}`以外の追加関数(ex:`RGB()`)
 - ブロックコメント
