@@ -78,7 +78,7 @@
       "name": "entity.name.function.aul2"
     },
     {
-      "match": "\\b(obj)\\.(mes|effect|draw|drawpoly|load|setfont|rand|setoption|getoption|getvalue|setanchor|getpixel|putpixel|copypixel|pixeloption|getaudio|copybuffer|clearbuffer|pixelshader|computeshader|getpoint|getinfo|interpolation)\\s*\\(",
+      "match": "\\b(obj)\\.(mes|effect|draw|drawpoly|load|setfont|rand|setoption|getoption|getvalue|setanchor|getpixel|putpixel|copypixel|pixeloption|getpixeldata|putpixeldata|getaudio|copybuffer|clearbuffer|pixelshader|computeshader|getpoint|getinfo|interpolation)\\s*\\(",
       "captures": {
         "1": {"name": "variable.other.constant.aul2"},
         "2": {"name": "entity.name.function.aul2" }
@@ -87,21 +87,21 @@
     {
       "match": "\\b(table)\\.(insert|concat|maxn|remove|sort|new|clear|move)\\b",
       "captures": {
-        "1": {"name": "variable.other.constant.aul2"},
+        "1": {"name": "entity.name.function.aul2"},
         "2": {"name": "entity.name.function.aul2"}
       }
     },
     {
       "match": "\\b(math)\\.(pi|deg|rad|sin|cos|tan|asin|acos|atan2?|sinh|cosh|tanh|pow|exp|log|sqrt|ldexp|frexp|abs|ceil|floor|fmod|max|min|huge|modf|random|randomseed)\\b",
       "captures": {
-        "1": {"name":"variable.other.constant.aul2"},
+        "1": {"name":"entity.name.function.aul2"},
         "2": {"name":"entity.name.function.aul2"}
       }
     },
     {
       "match": "\\b(string)\\.(byte|char|find|format|g?match|g?sub|len|lower|rep|reverse|upper)\\b",
       "captures": {
-        "1": {"name":"variable.other.constant.aul2"},
+        "1": {"name":"entity.name.function.aul2"},
         "2": {"name":"entity.name.function.aul2"}
       }
     },
