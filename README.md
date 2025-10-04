@@ -76,7 +76,7 @@ Hirokawa-beachさんの[AviUtl2-IntelliSense-0.3.0](https://github.com/hirokawa-
 - `--label`, `--script`, `--information`が着色されるように修正
 - 変数(ex:`obj.ox`), 関数内の型(ex:`"figure"`)の着色対象範囲をファイル全体に変更
 - `obj.setoption`, `obj.pixelshader`, `obj.computeshader`を着色対象に追加
-- `obj.rotation`,`obj.degug_pring`を`rotation`,`debug_pring`に修正
+- `obj.rotation`,`obj.degug_print`を`rotation`,`debug_print`に修正
 - `obj.{変数}`の色をやや濃い青色に変更
 - VScodeのsetting.jsonで設定する項目を`aul2.settings.lua`, `aul2.variable.lua`, `aul2.type.lua`の3つに削減
 
