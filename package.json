@@ -2,7 +2,7 @@
   "name": "aul2-intellisense-fork",
   "displayName": "AviUtl2 IntelliSense Fork",
   "description": "Hirokawa-beachさんのAviUtl2-IntelliSenseのフォーク版です。主にSyntax Highlight部分を変更しています。",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "seilor0",
   "engines": {
     "vscode": "^1.104.1"

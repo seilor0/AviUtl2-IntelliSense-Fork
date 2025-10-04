@@ -19,7 +19,7 @@ Hirokawa-beachさんの[AviUtl2-IntelliSense-0.3.0](https://github.com/hirokawa-
 > ユーザー(vscode全体)の設定かワークスペースの設定の、編集したい方を選択し
 > 右上にある「設定(JSONを開く)」を押してください。
 > 開いたjsonファイルに下記のコードを追加してください。
-```
+```json
 "editor.tokenColorCustomizations": {
   "textMateRules": [
     {
@@ -82,3 +82,4 @@ Hirokawa-beachさんの[AviUtl2-IntelliSense-0.3.0](https://github.com/hirokawa-
 
 ### その他
 - AviUtl2 Beta12の公開に伴い、Snippets, SignatureHelp, SyntaxHighlightに`--text@`の項目を追加
+- AviUtl2 Beta13の公開に伴い、SignatureHelp, SyntaxHighlightに`obj.getpixeldata`, `obj.putpixeldata`を追加
