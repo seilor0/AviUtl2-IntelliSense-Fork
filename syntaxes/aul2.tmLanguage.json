@@ -126,7 +126,7 @@
       "name": "constant.numeric.aul2"
     },
     {
-      "match": "\\w[\\w\\d_]*",
+      "match": "\\b\\w+\\b",
       "name": "aul2.variable.lua" 
     }
   ],
