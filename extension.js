@@ -143,6 +143,23 @@ function activate(context) {
                                 { label: 'value', documentation: 'オプション値' }
                             ]
                         },
+                        'obj.getpixeldata': {
+                            label: 'obj.getpixeldata(target[, format])',
+                            parameters: [
+                                { label: 'target', documentation: '読み込む画像バッファ(obj,tempbuffer,framebuffer,cache:xxx)' },
+                                { label: 'format', documentation: '画像データの​フォーマット(rgba/bgra) ※デフォルトはRGBA32bit' }
+                            ]
+                        },
+                        'obj.putpixeldata': {
+                            label: 'obj.putpixeldata(target, data, w, h[, format])',
+                            parameters: [
+                                { label: 'target', documentation: '書き込む画像バッファ(obj,tempbuffer,framebuffer,cache:xxx)' },
+                                { label: 'data', documentation: '画像データの​ポインタ​(ユーザーデータ)' },
+                                { label: 'w', documentation: '横の​ピクセル数' },
+                                { label: 'h', documentation: '縦の​ピクセル数' },
+                                { label: 'format', documentation: '画像データの​フォーマット(rgba/bgra) ※デフォルトはRGBA32bit' }
+                            ]
+                        },
                         'obj.getaudio': {
                             label: 'obj.getaudio(buf, file, type, size)',
                             parameters: [
@@ -513,6 +530,8 @@ function activate(context) {
           'setanchor',
           'getpixel',
           'pixeloption',
+          'pixeloption',
+          'getpixeldata',
           'getaudio',
           'copybuffer',
           'clearbuffer',
