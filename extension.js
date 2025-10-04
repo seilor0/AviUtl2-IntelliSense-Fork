@@ -136,6 +136,23 @@ function activate(context) {
                                 { label: 'type', documentation: 'ピクセル情報のタイプ("col","rgb")' }
                             ]
                         },
+                        'putpixel': {
+                            label: 'obj.putpixel(x, y, ...)',
+                            parameters: [
+                                { label: 'x', documentation: '書き換える​ピクセルの​座標' },
+                                { label: 'y', documentation: '書き換える​ピクセルの​座標' },
+                                { label: '...', documentation: 'オプションを続けて書く' }
+                            ]
+                        },
+                        'copypixel': {
+                            label: 'obj.copypixel(dst_x, dst_y, src_x, src_y)',
+                            parameters: [
+                                { label: 'dst_x', documentation: 'コピー先の​座標' },
+                                { label: 'dst_y', documentation: 'コピー先の​座標' },
+                                { label: 'src_x', documentation: 'コピー元の​座標' },
+                                { label: 'src_y', documentation: 'コピー元の​座標' }
+                            ]
+                        },
                         'obj.pixeloption': {
                             label: 'obj.pixeloption(name, value)',
                             parameters: [
@@ -518,17 +535,20 @@ function activate(context) {
         const typed = match[1];  
 
         const candidates = [
+          'mes',
+          'effect',
           'draw',
           'drawpoly',
-          'mes',
           'load',
-          'effect',
-          'rand',
           'setfont',
+          'rand',
           'setoption',
+          'getoption',
           'getvalue',
           'setanchor',
           'getpixel',
+          'putpixel',
+          'copypixel',
           'pixeloption',
           'getpixeldata',
           'putpixeldata',
@@ -539,7 +559,6 @@ function activate(context) {
           'computeshader',
           'getpoint',
           'getinfo',
-          'getoption',
           'interpolation'
         ];
 
