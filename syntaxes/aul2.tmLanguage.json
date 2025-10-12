@@ -22,7 +22,9 @@
         "3": {"name": "aul2.variable.lua"}
       },
       "end": "]]",
-      "endCaptures": {"0": {"name": "comment.block.lua"}},
+      "endCaptures": {
+        "0": {"name": "comment.block.lua"}
+      },
       "patterns": [
         {"include": "source.hlsl"},
         {
@@ -63,26 +65,34 @@
       }
     },
     {
-      "match": "\\b(obj)\\.(ox|oy|oz|rx|ry|rz|cx|cy|cz|zoom|alpha|aspect|x|y|z|w|h|screen_w|screen_h|framerate|frame|time|totalframe|totaltime|layer|index|num)\\b",
+      "match": "\\b(obj)\\.(ox|oy|oz|rx|ry|rz|cx|cy|cz|zoom|alpha|aspect|x|y|z|w|h|screen_w|screen_h|framerate|frame|time|totalframe|totaltime|layer|index|num|id)\\b",
       "captures": {
         "1": {"name": "variable.other.constant.aul2"},
         "2": {"name": "variable.other.constant.aul2"}
       }
     },
     {
-      "match": "\"\\s*(?:image|movie|figure|text|framebuffer|tempbuffer|before|culling|billboard|none|add|sub|mul|screen|overlay|light|dark|brightness|chroma|shadow|light_dark|diff|alpha_add2?|alpha_max|alpha_sub|drawtarget|draw_state|focus_mode|camera_param|track_mode|section_num|script_name|gui|camera_mode|camera_param|multi_object|line|loop|star|arm|color|inout|xyz|col|rgb|type|index|num|time|accelerate|decelerate|param|link|timecontrol|framerate|script_path|saving|blend|obj|text)\\s*\"",
-      "name": "aul2.type.lua"
+      "match": "\\b(obj)\\.(mes|effect|draw|drawpoly|load|setfont|rand|setoption|getoption|getvalue|setanchor|getpixel|putpixel|copypixel|pixeloption|getpixeldata|putpixeldata|getaudio|copybuffer|clearbuffer|pixelshader|computeshader|getpoint|getinfo|module|interpolation)\\b",
+      "captures": {
+        "1": {"name": "variable.other.constant.aul2"},
+        "2": {"name": "entity.name.function.aul2" }
+      }
     },
     {
       "match": "\\b(RGB|HSV|OR|AND|XOR|SHIFT|rotation|debug_print)\\b",
       "name": "entity.name.function.aul2"
     },
     {
-      "match": "\\b(obj)\\.(mes|effect|draw|drawpoly|load|setfont|rand|setoption|getoption|getvalue|setanchor|getpixel|putpixel|copypixel|pixeloption|getpixeldata|putpixeldata|getaudio|copybuffer|clearbuffer|pixelshader|computeshader|getpoint|getinfo|interpolation)\\s*\\(",
-      "captures": {
-        "1": {"name": "variable.other.constant.aul2"},
-        "2": {"name": "entity.name.function.aul2" }
-      }
+      "match": "\"\\s*(?:image|movie|figure|text|framebuffer|tempbuffer|before|culling|billboard|none|add|sub|mul|screen|overlay|light|dark|brightness|chroma|shadow|light_dark|diff|alpha_add2?|alpha_max|alpha_sub|drawtarget|draw_state|focus_mode|camera_param|track_mode|section_num|script_name|gui|camera_mode|camera_param|multi_object|line|loop|star|arm|color|inout|xyz|col|rgb|type|index|num|time|accelerate|decelerate|param|link|timecontrol|framerate|script_path|saving|blend|obj|text)\\s*\"",
+      "name": "aul2.type.lua"
+    },
+    {
+      "match": "\"?(背景|円|四角形|三角形|五角形|六角形|星型|ハート)\"?",
+      "name": "aul2.type.lua"
+    },
+    {
+      "match": "0x[0-9a-fA-F]{6}",
+      "name": "aul2.type.lua"
     },
     {
       "match": "\\b(table)\\.(insert|concat|maxn|remove|sort|new|clear|move)\\b",

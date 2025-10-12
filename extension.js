@@ -235,6 +235,12 @@ function activate(context) {
                                 { label: 'name', documentation: '取得する情報の名前(スクリプトフォルダのパス→"script_path",動画が出力中かどうか→"saving"など)' }
                             ]
                         },
+                        'obj.module' : {
+                            label: 'obj.module(name)',
+                            parameters: [
+                                {label: 'name', documentation: 'モジュール名(スクリプトモジュールのファイル名本体)'}
+                            ]
+                        },
                         'obj.interpolation': {
                             label: 'obj.interpolation(time, x0, y0, z0, x1, y1, z1, x2, y2, z2, x3, y3, z3)',
                             parameters: [
@@ -559,6 +565,7 @@ function activate(context) {
           'computeshader',
           'getpoint',
           'getinfo',
+          'module',
           'interpolation'
         ];
 
@@ -649,7 +656,8 @@ function activate(context) {
           'totaltime',
           'layer',
           'index',
-          'num'
+          'num',
+          'id'
         ];
 
         return candidates

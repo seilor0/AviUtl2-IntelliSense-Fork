@@ -1,7 +1,8 @@
 # AviUtl2-IntelliSense-Fork
 
-Hirokawa-beachさんの[AviUtl2-IntelliSense-0.3.0](https://github.com/hirokawa-beach/AviUtl2-IntelliSense)のフォーク版です。<br>
+Hirokawa-beachさんの[AviUtl2-IntelliSense](https://github.com/hirokawa-beach/AviUtl2-IntelliSense)のフォーク版です。v0.3.0をフォークしています。<br>
 主にSyntax Highlight部分を変更しています。
+
 
 ## 機能紹介
 元の機能に加えて、ソースコードが以下のように着色されます。
@@ -19,7 +20,7 @@ Hirokawa-beachさんの[AviUtl2-IntelliSense-0.3.0](https://github.com/hirokawa-
 > ユーザー(vscode全体)の設定かワークスペースの設定の、編集したい方を選択し
 > 右上にある「設定(JSONを開く)」を押してください。
 > 開いたjsonファイルに下記のコードを追加してください。
-```json
+```
 "editor.tokenColorCustomizations": {
   "textMateRules": [
     {
@@ -45,6 +46,7 @@ Hirokawa-beachさんの[AviUtl2-IntelliSense-0.3.0](https://github.com/hirokawa-
 ```
 >"foreground":につづくカラーコードを変更することで、ご自身でお好みの色に変更可能です。
 
+
 ## 導入方法(フォーク元と同様)
 1.Releasesから最新のバージョンの`.vsix`をダウンロードしてください。<br>
 2.VScodeを立ち上げ、拡張機能メニューの上部にあるボタンを押し、「VSIXからのインストール」を選択してください。<br>
@@ -58,8 +60,10 @@ Hirokawa-beachさんの[AviUtl2-IntelliSense-0.3.0](https://github.com/hirokawa-
 > `code --install-extension aul2-intellisense-fork-x.x.x.vsix`を実行してください。
 > バージョンを戻す時には、上記のコマンドに`--force`を足して実行してください
 
+
 ## アンインストール方法(フォーク元と同様)
 ほかの拡張機能と同様に、拡張機能のメニューからAviUtl2 IntelliSense Forkを選び、「アンインストール」を選択してください。
+
 
 ## 機能詳細
 
@@ -80,7 +84,40 @@ Hirokawa-beachさんの[AviUtl2-IntelliSense-0.3.0](https://github.com/hirokawa-
 - `obj.{変数}`の色をやや濃い青色に変更
 - VScodeのsetting.jsonで設定する項目を`aul2.settings.lua`, `aul2.variable.lua`, `aul2.type.lua`の3つに削減
 
-### その他
+
+## Credits
+MIT License
+
+Copyright (c) 2025 hirokawa-beach
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+## Change Log
+
+### 0.1.0
 - AviUtl2 Beta8 の公開に伴い、SignatureHelp, SyntaxHighlightに`obj.putpixel`, `obj.copypixel`を追加
+
+### 0.2.0
 - AviUtl2 Beta12の公開に伴い、Snippets, SignatureHelp, SyntaxHighlightに`--text@`の項目を追加
 - AviUtl2 Beta13の公開に伴い、SignatureHelp, SyntaxHighlightに`obj.getpixeldata`, `obj.putpixeldata`を追加
+
+### 0.3.0
+- Avitul2 Beta14の公開に伴い、SignatureHelp, Syntax Highlightに`obj.id`を追加
+- AviUtl2 Beta15の公開に伴い、SignatureHelp, Syntax Highlightに`obj.module`を追加
