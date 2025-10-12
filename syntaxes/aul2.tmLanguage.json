@@ -28,7 +28,7 @@
       "patterns": [
         {"include": "source.hlsl"},
         {
-          "match": "[\\w\\d]",
+          "match": "\\b\\w+\\b",
           "name": "aul2.variable.lua"
         }
       ]
