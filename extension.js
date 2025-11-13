@@ -2,21 +2,16 @@ const vscode = require('vscode');
 
 function activate(context) {
 
-
+    // 説明の表示
     context.subscriptions.push(
         vscode.languages.registerSignatureHelpProvider(
             { scheme: 'file', language: 'lua' },
             {
                 provideSignatureHelp(document, position, token, context) {
-
                     const line = document.lineAt(position.line).text;
-                    
-
                     const substring = line.substring(0, position.character);
 
                     const nameMatch = substring.match(/(obj\.\w+)\s*\([^)]*$/);
-
-
 
                     const functionName = nameMatch[1];
 
@@ -75,7 +70,6 @@ function activate(context) {
                                 { label: 'u3', documentation: '頂点3に対応するオブジェクトの画像のX座標' },
                                 { label: 'v3', documentation: '頂点3に対応するオブジェクトの画像のY座標' },
                                 { label: 'alpha', documentation: '' },
-                                
                             ]
                         },
                         'obj.load': {
@@ -100,7 +94,14 @@ function activate(context) {
                             parameters: [
                                 { label: 'st_num', documentation: '乱数の最小値' },
                                 { label: 'ed_num', documentation: '乱数の最大値' },
-                                { label: 'seed', documentation: '乱数の種(プラス値→オブジェクト毎でなる乱数/マイナス値→すべてのオブジェクトで同じ乱数)' },
+                                { label: 'seed', documentation: '乱数の種(プラス値→オブジェクト毎に異なる乱数/マイナス値→すべてのオブジェクトで同じ乱数)' },
+                                { label: 'frame', documentation: 'フレーム番号(省略時は現在のフレーム)' }
+                            ]
+                        },
+                        'obj.rand1': {
+                            label: 'obj.rand1([seed, frame])',
+                            parameters: [
+                                { label: 'seed', documentation: '乱数の種(プラス値→オブジェクト毎に異なる乱数/マイナス値→すべてのオブジェクトで同じ乱数)' },
                                 { label: 'frame', documentation: 'フレーム番号(省略時は現在のフレーム)' }
                             ]
                         },
@@ -109,6 +110,12 @@ function activate(context) {
                             parameters: [
                                 { label: 'name', documentation: 'オプション名(例:描画先変更→"drawtarget"/ 詳細はlua.txtを参照してください。)' },
                                 { label: 'value', documentation: 'オプション値(例:仮想バッファに描画先変更→"tempbuffer")' }
+                            ]
+                        },
+                        'obj.getoption': {
+                            label: 'obj.getoption(name)',
+                            parameters: [
+                                { label: 'name', documentation: 'オプション名' }
                             ]
                         },
                         'obj.getvalue': {
@@ -136,7 +143,7 @@ function activate(context) {
                                 { label: 'type', documentation: 'ピクセル情報のタイプ("col","rgb")' }
                             ]
                         },
-                        'putpixel': {
+                        'obj.putpixel': {
                             label: 'obj.putpixel(x, y, ...)',
                             parameters: [
                                 { label: 'x', documentation: '書き換える​ピクセルの​座標' },
@@ -144,7 +151,7 @@ function activate(context) {
                                 { label: '...', documentation: 'オプションを続けて書く' }
                             ]
                         },
-                        'copypixel': {
+                        'obj.copypixel': {
                             label: 'obj.copypixel(dst_x, dst_y, src_x, src_y)',
                             parameters: [
                                 { label: 'dst_x', documentation: 'コピー先の​座標' },
@@ -201,17 +208,18 @@ function activate(context) {
                             ]
                         },
                         'obj.pixelshader': {
-                            label: 'obj.pixelshader(name, target, {resource, ...}[, {constant, ...}, blend])',
+                            label: 'obj.pixelshader(name, target, {resource, ...}[, {constant, ...}, blend, sampler])',
                             parameters: [
                                 { label: 'name', documentation: 'シェーダーの登録名' },
                                 { label: 'target', documentation: '出力先のバッファ名' },
                                 { label: 'resource', documentation: '参照するバッファ名の配列' },
                                 { label: 'constant', documentation: '参照する定義の配列' },
-                                { label: 'blend', documentation: '出力先へのブレンド方法' }
+                                { label: 'blend', documentation: '出力先へのブレンド方法' },
+                                { label: 'sampler', documentation: 'サンプラーの​種別' }
                             ]
                         },
                         'obj.computeshader': {
-                            label: 'obj.computeshader(name, {target}, {resource, ...}[, {constant, ...}, countX, countY, countZ])',
+                            label: 'obj.computeshader(name, {target}, {resource, ...}[, {constant, ...}, countX, countY, countZ, sampler])',
                             parameters: [
                                 { label: 'name', documentation: 'シェーダーの登録名' },
                                 { label: 'target', documentation: '出力先のバッファ名' },
@@ -219,7 +227,8 @@ function activate(context) {
                                 { label: 'constant', documentation: '参照する定義の配列' },
                                 { label: 'countX', documentation: 'X軸スレッドグループ数' },
                                 { label: 'countY', documentation: 'Y軸スレッドグループ数' },
-                                { label: 'countZ', documentation: 'Z軸スレッドグループ数' }
+                                { label: 'countZ', documentation: 'Z軸スレッドグループ数' },
+                                { label: 'sampler', documentation: 'サンプラーの​種別'},
                             ]
                         },
                         'obj.getpoint': {
@@ -235,10 +244,16 @@ function activate(context) {
                                 { label: 'name', documentation: '取得する情報の名前(スクリプトフォルダのパス→"script_path",動画が出力中かどうか→"saving"など)' }
                             ]
                         },
-                        'obj.module' : {
+                        'obj.data': {
+                            label: 'obj.data(name)',
+                            parameters: [
+                                {label: 'name', documentation: '汎用データ領域の​登録名'}
+                            ]
+                        },
+                        'obj.module': {
                             label: 'obj.module(name)',
                             parameters: [
-                                {label: 'name', documentation: 'モジュール名(スクリプトモジュールのファイル名本体)'}
+                                { label: 'name', documentation: 'モジュール名(スクリプトモジュールのファイル名本体)' }
                             ]
                         },
                         'obj.interpolation': {
@@ -329,26 +344,23 @@ function activate(context) {
                         }
                     }
 
-
-                    
-
                     const sigInfo = new vscode.SignatureInformation(info.label);
                     sigInfo.parameters = info.parameters.map(
                         p => new vscode.ParameterInformation(p.label, p.documentation)
                     );
 
-                    const parameterIndex = calculateActiveParameter(substring);
-                    
-
                     const sigHelp = new vscode.SignatureHelp();
                     sigHelp.signatures = [sigInfo];
                     sigHelp.activeSignature = 0;
-                    sigHelp.activeParameter = Math.min(parameterIndex, info.parameters.length - 1);
+                    sigHelp.activeParameter = Math.min(
+                        calculateActiveParameter(substring),
+                        info.parameters.length - 1
+                    );
 
                     return sigHelp;
                 }
             },
-            '(', ',' 
+            '(', ','
         )
     );
 
@@ -440,8 +452,8 @@ function activate(context) {
                     sigHelp.signatures = [sigInfo];
                     sigHelp.activeSignature = 0;
                     sigHelp.activeParameter = Math.min(
-                    calculateActiveParameter(substring),
-                    info.parameters.length - 1
+                        calculateActiveParameter(substring),
+                        info.parameters.length - 1
                     );
 
                     return sigHelp;
@@ -451,298 +463,432 @@ function activate(context) {
         )
     );
 
-  context.subscriptions.push(
-    vscode.languages.registerSignatureHelpProvider(
-      { scheme: 'file', language: 'lua' },
-      {
-        provideSignatureHelp(document, position, token, ctx) {
-          const line = document.lineAt(position.line).text;
-
-          const triggerRegex = /^--(track|check|col|file|font|figure|select|value|text)@/;
-          const match = line.match(triggerRegex);
-          if (!match) return null;
-
-          const kind = match[1];
-          const sig = new vscode.SignatureHelp();
-          sig.activeParameter = 0;
-
-          function createSignature(label, params) {
-            const s = new vscode.SignatureInformation(label);
-            s.parameters = params.map(p => new vscode.ParameterInformation(p));
-            return s;
-          }
-
-          switch (kind) {
-            case 'track':
-              sig.signatures = [
-                createSignature('--track@変数名:項目名,最小値,最大値,デフォルト値[,移動単位]', ['', '', '', '1 or 0.1 or 0.01 or 0.001']),
-              ];
-              break;
-            case 'check':
-              sig.signatures = [
-                createSignature('--check@変数名:項目名,デフォルト値', ['','','0 or 1']),
-              ];
-              break;
-            case 'col':
-              sig.signatures = [
-                createSignature('--col@変数名:項目名,デフォルト値', ['','','カラーコード']),
-              ];
-              break;
-            case 'file':
-              sig.signatures = [
-                createSignature('--file@変数名:項目名', ['']),
-              ];
-              break;
-            case 'font':
-              sig.signatures = [
-                createSignature('--font@変数名:項目名,デフォルト値', ['']),
-              ];
-              break;
-            case 'figure':
-              sig.signatures = [
-                createSignature('--figure@変数名:項目名,デフォルト値', ['']),
-              ];
-              break;
-            case 'select':
-              sig.signatures = [
-                createSignature('--select@変数名:項目名=デフォルト値,選択肢=値,選択肢=値,...', ['']),
-              ];
-              break;
-            case 'value':
-              sig.signatures = [
-                createSignature('--value@変数名:項目名,デフォルト値', ['','','数値→0,文字列→"あ",配列→{0,0,0}']),
-              ];
-              break;
-            case 'text':
-              sig.signatures = [
-                createSignature('--text@変数名:項目名,デフォルト値', ['']),
-              ];
-              break;
-          }
-
-          return sig;
-        }
-      },
-      ',', '@' 
-    )
-    );
-    
     context.subscriptions.push(
-    vscode.languages.registerCompletionItemProvider(
-    { scheme: 'file', language: 'lua' },
-    {
-      provideCompletionItems(document, position) {
-        const line = document.lineAt(position.line).text;
-        const text = line.substring(0, position.character);
+        vscode.languages.registerSignatureHelpProvider(
+            { scheme: 'file', language: 'lua' },
+            {
+                provideSignatureHelp(document, position, token, ctx) {
+                    const line = document.lineAt(position.line).text;
 
-        const match = text.match(/obj\.(\w*)$/);
-        if (!match) return;
+                    const triggerRegex = /^--(track|check|col|file|font|figure|select|value|text)@/;
+                    const match = line.match(triggerRegex);
+                    if (!match) return null;
 
-        const typed = match[1];  
+                    const kind = match[1];
+                    const sigHelp = new vscode.SignatureHelp();
 
-        const candidates = [
-          'mes',
-          'effect',
-          'draw',
-          'drawpoly',
-          'load',
-          'setfont',
-          'rand',
-          'setoption',
-          'getoption',
-          'getvalue',
-          'setanchor',
-          'getpixel',
-          'putpixel',
-          'copypixel',
-          'pixeloption',
-          'getpixeldata',
-          'putpixeldata',
-          'getaudio',
-          'copybuffer',
-          'clearbuffer',
-          'pixelshader',
-          'computeshader',
-          'getpoint',
-          'getinfo',
-          'module',
-          'interpolation'
-        ];
+                    const helpMap = {
+                        'track': {
+                            label: '--track@変数名:項目名,最小値,最大値,デフォルト値[,移動単位]',
+                            parameters: [
+                                { label: '変数名', documentation: '' },
+                                { label: '項目名', documentation: '' },
+                                { label: '最小値', documentation: '' },
+                                { label: '最大値', documentation: '' },
+                                { label: 'デフォルト値', documentation: '' },
+                                { label: '[,移動単位]', documentation: '1 or 0.1 or 0.01 or 0.001' }
+                            ]
+                        },
+                        'check': {
+                            label: '--check@変数名:項目名,デフォルト値',
+                            parameters: [
+                                { label: '変数名', documentation: '' },
+                                { label: '項目名', documentation: '' },
+                                { label: 'デフォルト値', documentation: '0/1 or true/false' },
+                            ]
+                        },
+                        'col': {
+                            label: '--col@変数名:項目名,デフォルト値',
+                            parameters: [
+                                { label: '変数名', documentation: '' },
+                                { label: '項目名', documentation: '' },
+                                { label: 'デフォルト値', documentation: 'カラーコード' },
+                            ]
+                        },
+                        'file': {
+                            label: '--file@変数名:項目名',
+                            parameters: [
+                                { label: '変数名', documentation: '' },
+                                { label: '項目名', documentation: '' },
+                            ]
+                        },
+                        'font': {
+                            label: '--font@変数名:項目名,デフォルト値',
+                            parameters: [
+                                { label: '変数名', documentation: '' },
+                                { label: '項目名', documentation: '' },
+                                { label: 'デフォルト値', documentation: '' },
+                            ]
+                        },
+                        'figure': {
+                            label: '--figure@変数名:項目名,デフォルト値',
+                            parameters: [
+                                { label: '変数名', documentation: '' },
+                                { label: '項目名', documentation: '' },
+                                { label: 'デフォルト値', documentation: '' },
+                            ]
+                        },
+                        'select': {
+                            label: '--select@変数名:項目名=デフォルト値,選択肢=値,選択肢=値,...',
+                            parameters: [
+                                { label: '変数名', documentation: '' },
+                                { label: '項目名', documentation: '' },
+                                { label: '選択肢', documentation: '' }
+                            ]
+                        },
+                        'value': {
+                            label: '--value@変数名:項目名,デフォルト値',
+                            parameters: [
+                                { label: '変数名', documentation: '' },
+                                { label: '項目名', documentation: '' },
+                                { label: 'デフォルト値', documentation: '数値→0,文字列→"あ",配列→{0,0,0}' },
+                            ]
+                        },
+                        'text': {
+                            label: '--text@変数名:項目名,デフォルト値',
+                            parameters: [
+                                { label: '変数名', documentation: '' },
+                                { label: '項目名', documentation: '' },
+                                { label: 'デフォルト値', documentation: '' },
+                            ]
+                        },
+                    };
+                    if (!kind in helpMap) return null;
 
-        return candidates
-          .filter(name => name.startsWith(typed)) 
-          .map(name => {
-            const item = new vscode.CompletionItem(`obj.${name}`, vscode.CompletionItemKind.Function);
-            item.insertText = name;
-            item.filterText = `obj.${name}`;
-            item.detail = 'AviUtl2 独自関数';
-            return item;
-          });
-      }
-    },
-    '.','a','b','c','d','e','f','g','h','i','j',
-    'k','l','m','n','o','p','q','r','s','t','u',
-    'v','w','x','y','z'
-    )
+                    const info = helpMap[kind];
+                    const sigInfo = new vscode.SignatureInformation(info.label);
+                    sigInfo.parameters = info.parameters.map(
+                        p => new vscode.ParameterInformation(p.label, p.documentation)
+                    );
+                    sigHelp.signatures = [sigInfo];
+
+                    const substring = line.substring(0, position.character);
+                    let i = substring.search(':');
+                    // let count = 0;
+                    // if (i > -1) count = substring.substring(i).split(',').length;
+                    const count = i==-1 ? 0 : substring.substring(i).split(',').length;
+
+                    // いくつ目のSignatureInformation の
+                    sigHelp.activeSignature = 0;
+                    // いくつ目のSignatureInformation を該当させるか
+                    sigHelp.activeParameter = Math.min(count, info.parameters.length - 1);
+
+                    return sigHelp;
+                }
+            },
+            '@', ':', ','
+        )
     );
 
+    // 補完候補の提示
     context.subscriptions.push(
-  vscode.languages.registerCompletionItemProvider(
-    { language: 'lua', scheme: 'file' },
-    {
-      provideCompletionItems(document, position) {
-        const line = document.lineAt(position.line).text;
-        const text = line.substring(0, position.character);
+        vscode.languages.registerCompletionItemProvider(
+            { scheme: 'file', language: 'lua' },
+            {
+                provideCompletionItems(document, position) {
+                    const line = document.lineAt(position.line).text;
+                    const text = line.substring(0, position.character);
 
-        const match = text.match(/\b(\w*)$/);
-        if (!match) return;
+                    const match = text.match(/obj\.(\w*)$/);
+                    if (!match) return;
 
-        const typed = match[1];
+                    const typed = match[1];
 
-        const functions = [
-            'RGB',
-            'HSV',
-            'OR',
-            'AND',
-            'XOR',
-            'SHIFT',
-            'rotation'
-        ];
-        return functions
-          .filter(name => name.startsWith(typed))
-          .map(name => {
-            const item = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
-            item.insertText = name;
-            item.detail = 'AviUtl2 独自関数';
-            return item;
-          });
-        }
-    },
-    ''
-    )
-    );
+                    const candidates = [
+                        'mes',
+                        'effect',
+                        'draw',
+                        'drawpoly',
+                        'load',
+                        'setfont',
+                        'rand',
+                        'rand1',
+                        'setoption',
+                        'getoption',
+                        'getvalue',
+                        'setanchor',
+                        'getpixel',
+                        'putpixel',
+                        'copypixel',
+                        'pixeloption',
+                        'getpixeldata',
+                        'putpixeldata',
+                        'getaudio',
+                        'copybuffer',
+                        'clearbuffer',
+                        'pixelshader',
+                        'computeshader',
+                        'getpoint',
+                        'getinfo',
+                        'data',
+                        'module',
+                        'interpolation'
+                    ];
 
-    context.subscriptions.push(
-    vscode.languages.registerCompletionItemProvider(
-    { scheme: 'file', language: 'lua' },
-    {
-      provideCompletionItems(document, position) {
-        const line = document.lineAt(position.line).text;
-        const text = line.substring(0, position.character);
-
-        const match = text.match(/obj\.(\w*)$/);
-        if (!match) return;
-
-        const typed = match[1]; 
-
-        const candidates = [
-          'rx',
-          'ry',
-          'rz',
-          'zoom',
-          'alpha',
-          'aspect',
-          'x',
-          'y',
-          'z',
-          'w',
-          'h',
-          'screen_w',
-          'screen_h',
-          'framerate',
-          'frame',
-          'time',
-          'totalframe',
-          'totaltime',
-          'layer',
-          'index',
-          'num',
-          'id'
-        ];
-
-        return candidates
-          .filter(name => name.startsWith(typed)) 
-          .map(name => {
-            const item = new vscode.CompletionItem(`obj.${name}`, vscode.CompletionItemKind.Variable);
-            item.insertText = name;
-            item.filterText = `obj.${name}`;
-            item.detail = 'AviUtl2 独自変数';
-            return item;
-          });
-      }
-    },
-    '.','a','b','c','d','e','f','g','h','i','j',
-    'k','l','m','n','o','p','q','r','s','t','u',
-    'v','w','x','y','z'
-    )
+                    return candidates
+                        .filter(name => name.startsWith(typed))
+                        .map(name => {
+                            const item = new vscode.CompletionItem(`obj.${name}`, vscode.CompletionItemKind.Function);
+                            item.insertText = name;
+                            item.filterText = `obj.${name}`;
+                            item.detail = 'AviUtl2 独自関数';
+                            return item;
+                        });
+                }
+            },
+            '.', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+            'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+            'v', 'w', 'x', 'y', 'z'
+        )
     );
 
     context.subscriptions.push(
-    vscode.languages.registerCompletionItemProvider(
-    { language: 'lua', scheme: 'file' },
-    {
-      provideCompletionItems(document, position) {
-        const line = document.lineAt(position.line).text;
-        const text = line.substring(0, position.character);
-        const match = text.match(/obj\.o(\w*)$/);
-        if (!match) return;
+        vscode.languages.registerCompletionItemProvider(
+            { language: 'lua', scheme: 'file' },
+            {
+                provideCompletionItems(document, position) {
+                    const line = document.lineAt(position.line).text;
+                    const text = line.substring(0, position.character);
 
-        const typed = match[1]; 
+                    const match = text.match(/\b(\w*)$/);
+                    if (!match) return;
 
-        const targets = ['ox', 'oy', 'oz'];
-        return targets
-          .filter(name => name.startsWith(`o${typed}`))
-          .map(name => {
-            const item = new vscode.CompletionItem(`obj.${name}`, vscode.CompletionItemKind.Variable);
-            item.insertText = name;
-            item.filterText = `obj.${name}`;
-            return item;
-          });
-      }
-    },
-    '' 
-    )
+                    const typed = match[1];
+
+                    const functions = [
+                        'RGB',
+                        'HSV',
+                        'OR',
+                        'AND',
+                        'XOR',
+                        'SHIFT',
+                        'rotation'
+                    ];
+                    return functions
+                        .filter(name => name.startsWith(typed))
+                        .map(name => {
+                            const item = new vscode.CompletionItem(name, vscode.CompletionItemKind.Function);
+                            item.insertText = name;
+                            item.detail = 'AviUtl2 独自関数';
+                            return item;
+                        });
+                }
+            },
+            ''
+        )
     );
 
+    context.subscriptions.push(
+        vscode.languages.registerCompletionItemProvider(
+            { scheme: 'file', language: 'lua' },
+            {
+                provideCompletionItems(document, position) {
+                    const line = document.lineAt(position.line).text;
+                    const text = line.substring(0, position.character);
+
+                    const match = text.match(/obj\.(\w*)$/);
+                    if (!match) return;
+
+                    const typed = match[1];
+
+                    const candidates = [
+                        'rx',
+                        'ry',
+                        'rz',
+                        'zoom',
+                        'alpha',
+                        'aspect',
+                        'x',
+                        'y',
+                        'z',
+                        'w',
+                        'h',
+                        'screen_w',
+                        'screen_h',
+                        'framerate',
+                        'frame',
+                        'time',
+                        'totalframe',
+                        'totaltime',
+                        'layer',
+                        'index',
+                        'num',
+                        'id',
+                        'effect_id',
+                    ];
+
+                    return candidates
+                        .filter(name => name.startsWith(typed))
+                        .map(name => {
+                            const item = new vscode.CompletionItem(`obj.${name}`, vscode.CompletionItemKind.Variable);
+                            item.insertText = name;
+                            item.filterText = `obj.${name}`;
+                            item.detail = 'AviUtl2 独自変数';
+                            return item;
+                        });
+                }
+            },
+            '.', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+            'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+            'v', 'w', 'x', 'y', 'z'
+        )
+    );
 
     context.subscriptions.push(
-  vscode.languages.registerCompletionItemProvider(
-    { language: 'lua', scheme: 'file' },
-    {
-      provideCompletionItems(document, position) {
-        const line = document.lineAt(position.line).text;
-        const text = line.substring(0, position.character);
+        vscode.languages.registerCompletionItemProvider(
+            { language: 'lua', scheme: 'file' },
+            {
+                provideCompletionItems(document, position) {
+                    const line = document.lineAt(position.line).text;
+                    const text = line.substring(0, position.character);
+                    const match = text.match(/obj\.o(\w*)$/);
+                    if (!match) return;
 
-        if (!/--\w*$/.test(text)) return undefined;
+                    const typed = match[1];
 
-        const tags = [
-          'track@',
-          'check@',
-          'color@',
-          'file@',
-          'font@',
-          'figure@',
-          'select@',
-          'value@',
-          'text@',
-          'label:',
-          'script:',
-          'information:'
-        ];
+                    const targets = ['ox', 'oy', 'oz'];
+                    return targets
+                        .filter(name => name.startsWith(`o${typed}`))
+                        .map(name => {
+                            const item = new vscode.CompletionItem(`obj.${name}`, vscode.CompletionItemKind.Variable);
+                            item.insertText = name;
+                            item.filterText = `obj.${name}`;
+                            return item;
+                        });
+                }
+            },
+            ''
+        )
+    );
 
-        return tags.map(tag => {
-          const item = new vscode.CompletionItem(`--${tag}`, vscode.CompletionItemKind.Snippet);
-          item.insertText = `${tag}`;
-          item.detail = 'AviUtl2 設定項目';
-          return item;
-        });
-      }
-    },
-    '-'
-    )
+    context.subscriptions.push(
+        vscode.languages.registerCompletionItemProvider(
+            { language: 'lua', scheme: 'file' },
+            {
+                provideCompletionItems(document, position) {
+                    const line = document.lineAt(position.line).text;
+                    const text = line.substring(0, position.character);
+
+                    if (!/--\w*$/.test(text)) return undefined;
+
+                    const tags = [
+                        'track@',
+                        'check@',
+                        'color@',
+                        'file@',
+                        'font@',
+                        'figure@',
+                        'select@',
+                        'value@',
+                        'text@',
+                        'data@',
+                        'label:',
+                        'script:',
+                        'information:',
+                        'speed:',
+                        'param:',
+                    ];
+
+                    return tags.map(tag => {
+                        const item = new vscode.CompletionItem(`--${tag}`, vscode.CompletionItemKind.Snippet);
+                        item.insertText = `${tag}`;
+                        item.detail = 'AviUtl2 設定項目';
+                        return item;
+                    });
+                }
+            },
+            '-'
+        )
+    );
+
+    // シンボルの追加
+    context.subscriptions.push(
+        vscode.languages.registerDocumentSymbolProvider(
+            { language: 'lua', scheme: 'file' },
+            { provideDocumentSymbols(document) {
+                const symbols = [];
+
+                let target = symbols;
+                for (let i=0; i<document.lineCount; i++) {
+                    const line = document.lineAt(i).text;
+                    if (line.startsWith("@")) {
+                        // name, detail, kind, range, selectionRange
+                        const symbol = new vscode.DocumentSymbol(
+                            line.substring(1),
+                            null,
+                            vscode.SymbolKind.File,
+                            new vscode.Range(
+                                new vscode.Position(i,1),
+                                new vscode.Position(i,line.length),
+                            ),
+                            new vscode.Range(
+                                new vscode.Position(i,1),
+                                new vscode.Position(i,line.length),
+                            )
+                        );
+                        symbols.push(symbol);
+                        target = symbol.children;
+
+                    } else if (/--.+@.+:/.test(line)) {
+                        let symbol;
+                        if (line.indexOf('--[[')==-1) {
+                            const {type, variable, name} = line.match(/--(?<type>.+)@(?<variable>.+):(?<name>[^,=]*)/).groups;
+                            const returnKind = (line,type) => {
+                                switch (type) {
+                                    case 'track':
+                                        return vscode.SymbolKind.Number;
+                                    case 'color':
+                                    case 'file':
+                                    case 'font':
+                                    case 'text':
+                                        return vscode.SymbolKind.String;
+                                    case 'check':
+                                        return /(true|false)$/.test(line) ? vscode.SymbolKind.Boolean : vscode.SymbolKind.Number;
+                                    case 'value':
+                                        return line.endsWith('}') ? vscode.SymbolKind.Array :
+                                                     /\d$/.test(line) ? vscode.SymbolKind.Number : vscode.SymbolKind.String;
+                                    default :
+                                        return vscode.SymbolKind.Variable;
+                                }
+                            };
+                            symbol = new vscode.DocumentSymbol(
+                                variable,
+                                type + ' : ' + name,
+                                returnKind(line, type),
+                                new vscode.Range(
+                                    new vscode.Position(i,type.length+3),
+                                    new vscode.Position(i,type.length+variable.length+3),
+                                ),
+                                new vscode.Range(
+                                    new vscode.Position(i,type.length+3),
+                                    new vscode.Position(i,type.length+variable.length+3),
+                                )
+                            );
+
+                        } else {
+                            const {type, name} = line.match(/--\[\[(?<type>.+)@(?<name>.+):/).groups;
+                            symbol = new vscode.DocumentSymbol(
+                                name,
+                                type,
+                                vscode.SymbolKind.Class,
+                                new vscode.Range(
+                                    new vscode.Position(i,type.length+5),
+                                    new vscode.Position(i,type.length+name.length+5),
+                                ),
+                                new vscode.Range(
+                                    new vscode.Position(i,type.length+5),
+                                    new vscode.Position(i,type.length+name.length+5),
+                                )
+                            );
+                        }
+                        target.push(symbol);
+                    }
+                }
+                return symbols;
+            }}
+        )
     );
 }
-
 
 
 function calculateActiveParameter(text) {
@@ -786,7 +932,7 @@ function calculateActiveParameter(text) {
     return commaCount;
 }
 
-function deactivate() {}
+function deactivate() { }
 
 module.exports = {
     activate,

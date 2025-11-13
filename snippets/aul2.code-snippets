@@ -6,14 +6,19 @@
   },
   "Check": {
     "prefix": "check",
-    "body": ["--check@${1:parameter}:${2:項目名},${3:0}"],
+    "body": ["--check@${1:parameter}:${2:項目名},${3:false}"],
     "description": "チェックボックス定義 "
   },
   "Color": {
     "prefix": "col",
-    "body": ["--col@${1:parameter}:${2:項目名},${3:0xffffff}"],
+    "body": ["--color@${1:parameter}:${2:項目名},${3:0xffffff}"],
     "description": "色設定定義 "
   }, 
+  "File": {
+    "prefix": "file",
+    "body": ["--file@${1:parameter}:${2:項目名}"],
+    "description": "ファイル選択定義 "
+  },
   "Font": {
     "prefix": "font",
     "body": ["--font@${1:parameter}:${2:項目名},${3:Yu Gothic UI}"],
@@ -38,5 +43,15 @@
     "prefix": "text",
     "body": ["--text@${1:parameter}:${2:項目名},${3:デフォルト文字\n次の行}"],
     "description": "テキスト設定定義"
-  }
+  },
+  "Data": {
+    "prefix": "data",
+    "body": ["--data@${1:parameter}:${2:サイズ(1024バイト以下)}"],
+    "description": "汎用データ領域定義"
+  },
+  "Pixelshader": {
+    "prefix": "pixelshader",
+    "body": ["--[[pixelshader@${1:登録名}:", "\t$0", "]]"],
+    "description": "ピクセルシェーダー定義"
+  },
 }
