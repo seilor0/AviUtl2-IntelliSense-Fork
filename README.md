@@ -8,16 +8,18 @@ Hirokawa-beachさんの[AviUtl2-IntelliSense](https://github.com/hirokawa-beach/
 元の機能に加えて、以下の2点が改変・追加されています。
 
 ### 1. Syntax Highlight
-ソースコードが以下のように着色されます。
+ソースコードが以下のように着色されます。<br>
+
 <img src="images/syntaxhighlight.png" width="500">
 
 > [!IMPORTANT]
-> Syntax Highlightの導入にはVScodeそのものの環境設定も追加する必要があります。
-> 変更方法は[後述の箇所](#2-vscodeの設定追加)を参照してください。
+> Syntax Highlightの導入にはVScodeそのものの環境設定も追加する必要があります。<br>
+> 追加方法は[後述の記載](#2-vscodeの設定追加)を参照してください。
 
 ### 2. シンボルの追加 (v0.4.0~)
 Aviutl2独自の設定項目について、シンボルを追加し、<br>
-アウトライン欄での表示やシンボル検索ができるようになります。
+アウトライン欄での表示やシンボル検索ができるようになります。<br>
+
 <img src="images/outline.png" width="300">
 
 
