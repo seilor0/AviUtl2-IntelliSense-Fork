@@ -1,7 +1,6 @@
 # AviUtl2-IntelliSense-Fork
 
-Hirokawa-beachさんの[AviUtl2-IntelliSense](https://github.com/hirokawa-beach/AviUtl2-IntelliSense)のフォーク版です。v0.3.0をフォークしています。<br>
-主にSyntax Highlight部分を変更しています。
+Hirokawa-beachさんの[AviUtl2-IntelliSense](https://github.com/hirokawa-beach/AviUtl2-IntelliSense)のフォーク版です。v0.3.0をフォークしています。
 
 
 ## 機能紹介
@@ -17,8 +16,7 @@ Hirokawa-beachさんの[AviUtl2-IntelliSense](https://github.com/hirokawa-beach/
 > 追加方法は[後述の記載](#2-vscodeの設定追加)を参照してください。
 
 ### 2. シンボルの追加 (v0.4.0~)
-Aviutl2独自の設定項目について、シンボルを追加し、<br>
-アウトライン欄での表示やシンボル検索ができるようになります。<br>
+Aviutl2独自の設定項目のシンボルを追加し、アウトライン欄での表示やシンボル検索ができるようになります。<br>
 
 <img src="images/outline.png" width="300">
 
@@ -39,6 +37,10 @@ Aviutl2独自の設定項目について、シンボルを追加し、<br>
 
 
 ### 2. VScodeの設定追加
+
+> [!IMPORTANT]
+> Syntax Highlightの導入にはこの設定をする必要があります。<br>
+
 <img src="images/syntaxhighlight.gif" width="800">
 
 1. VScodeを開き、設定マーク(左下)→設定、もしくは`Ctrl+,`で設定を表示してください。
@@ -54,10 +56,6 @@ Aviutl2独自の設定項目について、シンボルを追加し、<br>
       "settings": {"foreground": "#FF8800"}
     },
     {
-      "scope": "aul2.variable.lua", //変数(obj.oxなど)への着色
-      "settings": {"foreground": "#87CEFA"}
-    },
-    {
       "scope": "aul2.type.lua", //型("figure"など)への着色
       "settings": {"foreground": "#228B22"}
     }
@@ -66,38 +64,13 @@ Aviutl2独自の設定項目について、シンボルを追加し、<br>
 ```
 > "foreground":につづくカラーコードを変更することで、ご自身でお好みの色に変更可能です。
 
-> [!IMPORTANT]
-> Syntax Highlightの導入にはこの設定をする必要があります。
 
 **これで完了です。お疲れさまでした！**
 
 
 ## アンインストール方法(フォーク元と同様)
-ほかの拡張機能と同様に、拡張機能のメニューからAviUtl2 IntelliSense Forkを選び、<br>
-「アンインストール」を選択してください。
+ほかの拡張機能と同様に、拡張機能のメニューからAviUtl2 IntelliSense Forkを選び、「アンインストール」を選択してください。
 
-
-## 機能詳細
-
-### 追加した主なSyntax Highlight
-- `local`, `function`, `if`文, `for`文
-- `math`, `string`, `table`ライブラリ
-- `pixelshader`, `computeshader`の定義部分, `{変数}.cdef`部分
-- `obj.{関数}`以外の追加関数(ex:`RGB()`)
-- ブロックコメント
-- 旧スクリプト形式の一部(`--track0,1,2,3`, `--check0`, `--dialog`)
-- 文字列, 数値, `obj.{変数}`以外の変数(アルファベット&数字&_で構成された単語)
-
-### 変更点・修正点
-- `--label`, `--script`, `--information`が着色されるように修正
-- 変数(ex:`obj.ox`), 関数内の型(ex:`"figure"`)の着色対象範囲をファイル全体に変更
-- `obj.setoption`, `obj.pixelshader`, `obj.computeshader`を着色対象に追加
-- `obj.rotation`,`obj.degug_print`を`rotation`,`debug_print`に修正
-- `obj.{変数}`の色をやや濃い青色に変更
-- VScodeのsetting.jsonで設定する項目を`aul2.settings.lua`, `aul2.variable.lua`, `aul2.type.lua`の3つに削減
-
-### 追加した機能
-- Aviutl2の独自設定項目のシンボル追加
 
 ## Credits
 ```
@@ -127,6 +100,21 @@ SOFTWARE.
 ## Change Log
 
 ### 0.1.0
+- 以下のSyntax Highlightの追加
+  - `local`, `function`, `if`文, `for`文
+  - `math`, `string`, `table`ライブラリ
+  - `pixelshader`, `computeshader`の定義部分, `{変数}.cdef`部分
+  - `obj.{関数}`以外の追加関数(ex:`RGB()`)
+  - ブロックコメント
+  - 旧スクリプト形式の一部(`--track0,1,2,3`, `--check0`, `--dialog`)
+  - 文字列, 数値, `obj.{変数}`以外の変数(アルファベット&数字&_で構成された単語)
+- 以下のSyntax Highlightの変更・修正
+  - `--label`, `--script`, `--information`が着色されるように修正
+  - 変数(ex:`obj.ox`), 関数内の型(ex:`"figure"`)の着色対象範囲をファイル全体に変更
+  - `obj.setoption`, `obj.pixelshader`, `obj.computeshader`を着色対象に追加
+  - `obj.rotation`,`obj.degug_print`を`rotation`,`debug_print`に修正
+  - `obj.{変数}`の色をやや濃い青色に変更
+  - VScodeのsetting.jsonで設定する項目を`aul2.settings.lua`, `aul2.variable.lua`, `aul2.type.lua`の3つに削減
 - AviUtl2 Beta8 の公開に伴い、SignatureHelp, SyntaxHighlightに`obj.putpixel`, `obj.copypixel`を追加
 
 ### 0.2.0
@@ -142,3 +130,10 @@ SOFTWARE.
 - `obj.draw()`などの関数の注釈が表示されるように変更
 - Syntax Highlightを整理（結果に変化はなし）
 - Aviutl2の独自設定項目のシンボルを追加
+
+### 1.0.0
+- AvuUtl2 Beta20,21の変更内容に対応
+- AviUtl2独自関数（`obj.***()`）のサジェスト時、関数の説明が表示される機能を追加
+- `obj.setoption()`など、入力候補が決まっているAviUtl2独自の関数について、入力候補がサジェストされる機能を追加
+- `math`, `string`, `table`ライブラリ内の関数のサジェストを追加
+- VScodeのsetting.jsonで設定する項目を`aul2.settings.lua`, `aul2.type.lua`の2つに削減

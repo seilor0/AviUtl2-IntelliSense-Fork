@@ -28,7 +28,7 @@ obj.ox -- 変数
 size   -- obj.{変数}以外の変数
 100    -- 数値
 "txt"  -- 文字列
-"figure" -- 型
+0xffffff -- 色
 math.max(size, 10) --math,string,tableライブラリ
 local r,g,b = RGB(color) -- local, obj.{関数}以外の関数
 
